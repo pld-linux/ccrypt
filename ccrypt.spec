@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://ccrypt.sourceforge.net/download/%{name}-%{version}.tar.gz
+# Source0-md5:	9eaf357acda3ea0cf26300cffa0d54af
 BuildRequires:	autoconf
 BuildRequires:	automake
 URL:		http://ccrypt.sourceforge.net/
