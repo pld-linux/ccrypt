@@ -30,7 +30,7 @@ szyfr jest uwa¿any za daj±cy du¿e bezpieczeñstwo.
 
 %build
 rm -f missing
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure
