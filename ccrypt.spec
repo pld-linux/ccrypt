@@ -7,9 +7,9 @@ License:	GPL
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/ccrypt/%{name}-%{version}.tar.gz
 # Source0-md5:	19526e31a7d234e29d54dbcc876605d5
+URL:		http://ccrypt.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
-URL:		http://ccrypt.sourceforge.net/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
