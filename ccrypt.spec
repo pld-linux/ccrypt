@@ -2,7 +2,7 @@ Summary:	Secure encryption and decryption of files and streams
 Summary(pl):	Bezpieczne szyfrowanie i odszyfrowywanie plików i strumieni
 Name:		ccrypt
 Version:	1.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/System
 Source0:	http://ccrypt.sourceforge.net/download/%{name}-%{version}.tar.gz
@@ -46,13 +46,11 @@ echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccat.1
 echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccdecrypt.1
 echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccencrypt.1
 
-gzip -9nf AUTHORS ChangeLog NEWS README doc/cypfaq01.txt
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz doc/*gz
+%doc AUTHORS ChangeLog NEWS README doc/cypfaq01.txt
 %attr(755,root,root) %{_bindir}/*
 %{_mandir}/man1/*
