@@ -8,6 +8,8 @@ Group:          Applications/System
 Group(de):      Applikationen/System
 Group(pl):      Aplikacje/System
 Source0:	http://ccrypt.sourceforge.net/download/%{name}-%{version}.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
 URL:		http://ccrypt.sourceforge.net/
 BuildRoot:      %{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -26,22 +28,25 @@ ccrypt bazuje na Rijndael AES (Advanced Encryption Standard). Ten
 szyfr jest uwa¿any za daj±cy du¿e bezpieczeñstwo.
 
 %prep
-%setup -q -n ccrypt-1.2
+%setup -q
 
 %build
-./configure
-%{__make}  CFLAGS="%{rpmcflags}"
+rm -f missing
+aclocal
+autoconf
+automake -a -c
+%configure
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-install src/ccrypt	$RPM_BUILD_ROOT%{_bindir}
-ln -sfn ccrypt 		$RPM_BUILD_ROOT%{_bindir}/ccat
-ln -sfn ccrypt 		$RPM_BUILD_ROOT%{_bindir}/ccencrypt
-ln -sfn ccrypt 		$RPM_BUILD_ROOT%{_bindir}/ccdecrypt
-install doc/ccrypt.1	$RPM_BUILD_ROOT%{_mandir}/man1
+echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccat.1
+echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccdecrypt.1
+echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccencrypt.1
 
 gzip -9nf AUTHORS ChangeLog NEWS README doc/cypfaq01.txt
 
