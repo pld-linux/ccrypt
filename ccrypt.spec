@@ -1,12 +1,12 @@
 Summary:	Secure encryption and decryption of files and streams
 Summary(pl):	Bezpieczne szyfrowanie i odszyfrowywanie plików i strumieni
 Name:		ccrypt
-Version:	1.5
+Version:	1.6
 Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/ccrypt/%{name}-%{version}.tar.gz
-# Source0-md5:	ec5476db1833d56f55c714c749e9a2be
+# Source0-md5:	f4e0c924d9a531b96f20fb26e830b646
 BuildRequires:	autoconf
 BuildRequires:	automake
 URL:		http://ccrypt.sourceforge.net/
