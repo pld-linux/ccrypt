@@ -2,11 +2,13 @@ Summary:	Secure encryption and decryption of files and streams
 Summary(pl):	Bezpieczne szyfrowanie i odszyfrowywanie plików i strumieni
 Name:		ccrypt
 Version:	1.4
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/System
 Source0:	http://ccrypt.sourceforge.net/download/%{name}-%{version}.tar.gz
 # Source0-md5:	9eaf357acda3ea0cf26300cffa0d54af
+# From http://quasar.mathstat.uottawa.ca/~selinger/ccrypt/download/ccrypt-1.4.gcc3-3.patch
+Patch0:		%{name}-gcc33.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 URL:		http://ccrypt.sourceforge.net/
@@ -28,6 +30,7 @@ szyfr jest uwa¿any za daj±cy du¿e bezpieczeñstwo.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 rm -f missing
