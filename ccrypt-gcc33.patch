@@ -1,0 +1,501 @@
+diff -Naur ccrypt-1.4/ChangeLog ccrypt-1.4x/ChangeLog
+--- ccrypt-1.4/ChangeLog	Sat Mar 29 19:46:32 2003
++++ ccrypt-1.4x/ChangeLog	Sat May 31 13:09:33 2003
+@@ -1,5 +1,14 @@
+ ChangeLog
+ 
++	(2003/05/31) PS1 - removed unescaped newline characters in string
++	constants to compile under gcc-3.3.
++	(2003/05/30) PS1 - changed scripts in "check" target to be
++	independent of /dev/zero and put temporary files in /tmp.
++	(2003/03/31) PS1 - changed rpm.spec file to be more Mandrake
++	acceptable. Binaries will from now on be installed in /usr/bin, 
++	man pages in /usr/share/man.
++	(2003/03/30) PS1 - fixed typo in usage message
++
+ v1.4 2003/03/29
+ 	(2003/03/29) PS1 - added missing mode argument to open(2) calls.
+ 	(2003/03/29) PS1 - made custom sigint handlers for overwrite and
+diff -Naur ccrypt-1.4/Makefile.in ccrypt-1.4x/Makefile.in
+--- ccrypt-1.4/Makefile.in	Sun Mar 30 00:38:07 2003
++++ ccrypt-1.4x/Makefile.in	Mon Jun  2 18:39:38 2003
+@@ -1,6 +1,6 @@
+-# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
++# Makefile.in generated automatically by automake 1.4 from Makefile.am
+ 
+-# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
++# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+ # gives unlimited permission to copy and/or distribute it,
+ # with or without modifications, as long as this notice is preserved.
+@@ -170,7 +170,7 @@
+ 	dot_seen=no; \
+ 	rev=''; list='$(SUBDIRS)'; for subdir in $$list; do \
+ 	  rev="$$subdir $$rev"; \
+-	  test "$$subdir" != "." || dot_seen=yes; \
++	  test "$$subdir" = "." && dot_seen=yes; \
+ 	done; \
+ 	test "$$dot_seen" = "no" && rev=". $$rev"; \
+ 	target=`echo $@ | sed s/-recursive//`; \
+diff -Naur ccrypt-1.4/README ccrypt-1.4x/README
+--- ccrypt-1.4/README	Sat Mar 29 20:33:08 2003
++++ ccrypt-1.4x/README	Sun Mar 30 17:02:39 2003
+@@ -147,7 +147,7 @@
+     -S, --suffix .suf      use suffix .suf instead of default .cpt
+     -s, --strictsuffix     refuse to encrypt files which already have suffix
+     -F, --envvar2 var      as -E for second keyword (for keychange mode)
+-    -H, --key2 key         as -H for second keyword (for keychange mode)
++    -H, --key2 key         as -K for second keyword (for keychange mode)
+     -Q, --prompt2 prompt   as -P for second keyword (for keychange mode)
+     -t, --timid            prompt twice for destructive encryption keys
+     -r, --recursive        recurse through directories
+diff -Naur ccrypt-1.4/README.win ccrypt-1.4x/README.win
+--- ccrypt-1.4/README.win	Wed Dec 18 00:43:12 2002
++++ ccrypt-1.4x/README.win	Mon Apr 21 18:41:16 2003
+@@ -11,9 +11,9 @@
+ INSTALLATION for Windows 95/98/2000/NT/xp/etc:
+ ==================================================
+ 
+-Download the file ccrypt-XXX.cygwin32.zip, and unpack it with
++Download the file ccrypt-XXX.cygwin-i386.zip, and unpack it with
+ 
+-        pkunzip ccrypt-XXX.cygwin32.zip
++        pkunzip ccrypt-XXX.cygwin-i386.zip
+ 
+ (Note: pkunzip is a relatively dumb program. My version of it, which
+ came with Windows 98, does not understand long filenames, and you may
+diff -Naur ccrypt-1.4/check/Makefile.am ccrypt-1.4x/check/Makefile.am
+--- ccrypt-1.4/check/Makefile.am	Sat Mar 29 02:46:24 2003
++++ ccrypt-1.4x/check/Makefile.am	Sat May 31 01:23:37 2003
+@@ -9,7 +9,7 @@
+ check_PROGRAMS = rijndael-check crypt3-check
+ check_SCRIPTS = ccrypt-check.sh
+ 
+-EXTRA_DIST = ccrypt-check.sh length-check.sh testdata testdata.cpt testdata.ucpt
++EXTRA_DIST = ccrypt-check.sh length-check.sh testdata testdata.cpt testdata.ucpt testdata31 testdata31.cpt
+ 
+ rijndael_check_SOURCES = rijndael-check.c rijndael-alg-ref.c rijndael-alg-ref.h boxes-ref.dat
+ rijndael_check_LDADD = ../src/rijndael.o ../src/tables.o
+diff -Naur ccrypt-1.4/check/Makefile.in ccrypt-1.4x/check/Makefile.in
+--- ccrypt-1.4/check/Makefile.in	Sun Mar 30 00:38:10 2003
++++ ccrypt-1.4x/check/Makefile.in	Mon Jun  2 18:39:39 2003
+@@ -1,6 +1,6 @@
+-# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
++# Makefile.in generated automatically by automake 1.4 from Makefile.am
+ 
+-# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
++# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+ # gives unlimited permission to copy and/or distribute it,
+ # with or without modifications, as long as this notice is preserved.
+@@ -78,7 +78,7 @@
+ check_PROGRAMS = rijndael-check crypt3-check
+ check_SCRIPTS = ccrypt-check.sh
+ 
+-EXTRA_DIST = ccrypt-check.sh length-check.sh testdata testdata.cpt testdata.ucpt
++EXTRA_DIST = ccrypt-check.sh length-check.sh testdata testdata.cpt testdata.ucpt testdata31 testdata31.cpt
+ 
+ rijndael_check_SOURCES = rijndael-check.c rijndael-alg-ref.c rijndael-alg-ref.h boxes-ref.dat
+ rijndael_check_LDADD = ../src/rijndael.o ../src/tables.o
+@@ -203,6 +203,10 @@
+ 	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+ 	  fi; \
+ 	done
++crypt3-check.o: crypt3-check.c ../config.h ../src/unixcrypt3.h
++rijndael-alg-ref.o: rijndael-alg-ref.c rijndael-alg-ref.h boxes-ref.dat
++rijndael-check.o: rijndael-check.c rijndael-alg-ref.h ../src/rijndael.h \
++	../src/tables.h
+ 
+ check-TESTS: $(TESTS)
+ 	@failed=0; all=0; \
+diff -Naur ccrypt-1.4/check/ccrypt-check.sh ccrypt-1.4x/check/ccrypt-check.sh
+--- ccrypt-1.4/check/ccrypt-check.sh	Sat Mar 29 02:46:23 2003
++++ ccrypt-1.4x/check/ccrypt-check.sh	Sat May 31 01:19:28 2003
+@@ -19,9 +19,10 @@
+ DATA=$srcdir/testdata
+ CPTDATA=$srcdir/testdata.cpt
+ UCPTDATA=$srcdir/testdata.ucpt
+-TMP1=./tmp1
+-TMP2=./tmp2
+-TMPDATA=./tmp3
++TMP1=`mktemp -u /tmp/ccrypt-check-XXXXXX`
++TMP2=`mktemp -u /tmp/ccrypt-check-XXXXXX`
++DATA31=$srcdir/testdata31
++CPTDATA31=$srcdir/testdata31.cpt
+ 
+ # check for a specific return value of a command
+ naction () {
+@@ -135,31 +136,27 @@
+ 
+ # test that short files are detected correctly
+ 
+-dd if=/dev/zero of=$TMPDATA bs=1 count=31 2>/dev/null
+-
+-naction 5 $CCRYPT -d -K wrongkey < $TMPDATA > $TMP2
+-action diff $TMP2 /dev/null > /dev/null
++naction 5 $CCRYPT -d -K wrongkey < $DATA31 > $TMP2
++action diff $TMP2 $CPTDATA31 > /dev/null
+ action rm -f $TMP2
+ 
+-action $CCRYPT -c -K wrongkey $TMPDATA > $TMP2
+-action diff $TMP2 /dev/null > /dev/null
++action $CCRYPT -c -K wrongkey $DATA31 > $TMP2
++action diff $TMP2 $CPTDATA31 > /dev/null
+ action rm -f $TMP2
+ 
+-action cp $TMPDATA $TMP2
++action cp $DATA31 $TMP2
+ action $CCRYPT -d -K wrongkey $TMP2
+-action diff $TMPDATA $TMP2 > /dev/null
++action diff $DATA31 $TMP2 > /dev/null
+ action rm -f $TMP2
+ 
+-naction 5 $CCRYPT -x -K wrongkey -H $KEY2 < $TMPDATA > $TMP2 
+-action diff $TMP2 /dev/null > /dev/null
++naction 5 $CCRYPT -x -K wrongkey -H $KEY2 < $DATA31 > $TMP2 
++action diff $TMP2 $CPTDATA31 > /dev/null
+ action rm -f $TMP2
+ 
+-action cp $TMPDATA $TMP2
++action cp $DATA31 $TMP2
+ action $CCRYPT -x -K wrongkey -H $KEY2 $TMP2
+-action diff $TMPDATA $TMP2 > /dev/null
++action diff $DATA31 $TMP2 > /dev/null
+ action rm -f $TMP2
+-
+-action rm -f $TMPDATA
+ 
+ echo $NAME: test succeeded >&2
+ exit 0
+diff -Naur ccrypt-1.4/check/length-check.sh ccrypt-1.4x/check/length-check.sh
+--- ccrypt-1.4/check/length-check.sh	Sat Mar 29 02:46:24 2003
++++ ccrypt-1.4x/check/length-check.sh	Sat May 31 01:20:11 2003
+@@ -16,9 +16,9 @@
+ KEY=testkey
+ KEY2=newkey
+ CCRYPT="../src/ccrypt -f"
+-DATA=./tmp0
+-TMP1=./tmp1
+-TMP2=./tmp2
++DATA=`mktemp -u /tmp/ccrypt-check-XXXXXX`
++TMP1=`mktemp -u /tmp/ccrypt-check-XXXXXX`
++TMP2=`mktemp -u /tmp/ccrypt-check-XXXXXX`
+ 
+ action () {
+     $@
+diff -Naur ccrypt-1.4/check/testdata31 ccrypt-1.4x/check/testdata31
+--- ccrypt-1.4/check/testdata31	Wed Dec 31 19:00:00 1969
++++ ccrypt-1.4x/check/testdata31	Mon Jun  2 18:55:33 2003
+@@ -0,0 +1 @@
++This file has exactly 31 bytes
+diff -Naur ccrypt-1.4/doc/Makefile.in ccrypt-1.4x/doc/Makefile.in
+--- ccrypt-1.4/doc/Makefile.in	Sun Mar 30 00:38:10 2003
++++ ccrypt-1.4x/doc/Makefile.in	Mon Jun  2 18:39:39 2003
+@@ -1,6 +1,6 @@
+-# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
++# Makefile.in generated automatically by automake 1.4 from Makefile.am
+ 
+-# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
++# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+ # gives unlimited permission to copy and/or distribute it,
+ # with or without modifications, as long as this notice is preserved.
+diff -Naur ccrypt-1.4/doc/ccrypt.1.in ccrypt-1.4x/doc/ccrypt.1.in
+--- ccrypt-1.4/doc/ccrypt.1.in	Sat Mar 29 20:36:31 2003
++++ ccrypt-1.4x/doc/ccrypt.1.in	Sat Apr 19 18:46:17 2003
+@@ -2,7 +2,7 @@
+ .\" This file is part of ccrypt. It is free software and it is covered
+ .\" by the GNU general public license. See the file COPYING for details.
+ 
+-.\" $Id$
++.\" $Id$
+ .TH @NAMEUC@ 1 "@DATE@" "Version @VERSION@" "Encryption"
+ .SH NAME
+ 
+@@ -254,7 +254,7 @@
+ Encrypted data might be corrupted for a number of reasons. For
+ instance, a file might have been partially encrypted or decrypted if
+ \fBccrypt\fP was interrupted while processing the file. Or data might
+-be corrupted by software or hardware error, or during transmission
++be corrupted by a software or hardware error, or during transmission
+ over a network. The encryption algorithm used by \fBccrypt\fP is
+ designed to allow recovery from errors. In general, only a few bytes
+ of data will be lost near where the error occurred.
+@@ -289,7 +289,7 @@
+ 
+ \fIBlock ciphers\fP operate on data segments of a fixed length.  For
+ instance, the Rijndael block cipher used in \fBccrypt\fP has a block
+-length of 32 bytes or 256 bits. Thus, this cipher encryptes 32 bytes
++length of 32 bytes or 256 bits. Thus, this cipher encrypts 32 bytes
+ at a time.
+ 
+ \fIStream ciphers\fP operate on data streams of any length. There are
+@@ -311,7 +311,7 @@
+ calculated from the corresponding block of plaintext and the previous
+ block of ciphertext. Note that in fact, each byte of \fIP[i]\fP can
+ be calculated from the corresponding byte of \fIC[i]\fP, so that the
+-stream cipher can be applied one byte at a time. In particular, the
++stream cipher can be applied to one byte at a time. In particular, the
+ stream length need not be a multiple of the block size.
+ 
+ Assuming that blocks are numbered starting from \fI0\fP, a special
+@@ -320,10 +320,10 @@
+ \fIinitialization vector\fP or \fIseed\fP. The seed is chosen at
+ encryption time and written as the first block of the encrypted
+ stream. It is important never to use the same seed more than once;
+-otherwise, the two resulting \fIC[0]\fP could be related by a simple
+-xor to obtain information about the corresponding \fIP[0]\fP.  If the
+-same seed is never reused, CFB is provably as secure as the underlying
+-block cipher.
++otherwise, the two resulting ciphertext blocks \fIC[0]\fP could be
++related by a simple xor to obtain information about the corresponding
++plaintext blocks \fIP[0]\fP.  If the same seed is never reused, CFB is
++provably as secure as the underlying block cipher.
+ 
+ In \fBccrypt\fP, the seed is constructed as follows: first, a
+ combination of the host name, current time, process id, and an
+@@ -338,21 +338,23 @@
+ 
+ \fBccrypt\fP is believed to provide very strong cryptographic
+ security, equivalent to that of the Rijndael cipher with 256-bit block
+-size. The Rijndael cipher is also used, with a smaller block size, in
+-the U.S. government's Advanced Encryption Standard (AES, see
+-http://www.nist.gov/aes/). Thus, this cipher is very well studied and
+-scrutinized, and if it is ever broken, this will become widely
+-publicized.
++size and 256-bit key size. Another version of the Rijndael cipher
++(with a smaller block size) is used in the U.S. government's Advanced
++Encryption Standard (AES, see http://www.nist.gov/aes/). Therefore,
++this cipher is very well studied and subject to intensive public
++scrutiny.  This scrutiny has a positive effect on the cipher's
++security. In particular, if an exploitable weakness in this cipher
++were ever discovered, this would become widely publicized.
+ 
+ In practical terms, the security of \fBccrypt\fP means that, without
+ knowledge of the encryption key, it is effectively impossible to
+ obtain any information about the plaintext from a given
+ ciphertext. This is true even if a large number of
+-plaintext-ciphertext pairs are already known for this key. Moreover,
+-because \fBccrypt\fP uses a key size of 256 bits, an exhaustive search
+-of the key space is not feasible, at least as long as sufficiently
+-long keys are actually used in practice. No cipher is secure if users
+-choose insecure keywords.
++plaintext-ciphertext pairs are already known for the same
++key. Moreover, because \fBccrypt\fP uses a key size of 256 bits, an
++exhaustive search of the key space is not feasible, at least as long
++as sufficiently long keys are actually used in practice. No cipher is
++secure if users choose insecure keywords.
+ 
+ On the other hand, \fBccrypt\fP does not attempt to provide \fIdata
+ integrity\fP, i.e., it will not attempt to detect whether the
+@@ -394,7 +396,7 @@
+ encrypted and compressed files (although currently not encrypted
+ compressed files).
+ 
+-To use the package, simply load jka-compr-ccrypt and edit as usual.
++To use the package, simply load jka-compr-ccrypt, then edit as usual.
+ When you open a file with the ".cpt" extension, emacs will prompt you
+ for a password for the file. It will remember the password for the
+ buffer, and when you save the file later, it will be automatically
+@@ -440,13 +441,13 @@
+ or removed several times. This is because \fBccrypt\fP thinks it
+ encountered different hardlinks for the same file.
+ 
+-The \fB--strictsuffix\fP option can behave unexpectedly if one file has
+-several hardlinks of which some have the suffix and some don't. In
+-this case, the inode will be encrypted/decrypted, but the suffix will
+-be changed only for those filenames that allow it. Similarly, if a
+-file cannot be renamed because a file of the given name already
+-exists, the file may still be encrypted/decrypted if it has another
+-hardlink. 
++The \fB--strictsuffix\fP option can behave in unexpected ways if one
++file has several hardlinks of which some have the suffix and some
++don't. In this case, the inode will be encrypted/decrypted, but the
++suffix will be changed only for those filenames that allow
++it. Similarly, if a file cannot be renamed because a file of the given
++name already exists, the file may still be encrypted/decrypted if it
++has another hardlink.  
+ .SH VERSION
+ 
+ @VERSION@
+diff -Naur ccrypt-1.4/emacs/Makefile.in ccrypt-1.4x/emacs/Makefile.in
+--- ccrypt-1.4/emacs/Makefile.in	Sun Mar 30 00:38:09 2003
++++ ccrypt-1.4x/emacs/Makefile.in	Mon Jun  2 18:39:39 2003
+@@ -1,6 +1,6 @@
+-# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
++# Makefile.in generated automatically by automake 1.4 from Makefile.am
+ 
+-# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
++# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+ # gives unlimited permission to copy and/or distribute it,
+ # with or without modifications, as long as this notice is preserved.
+@@ -101,26 +101,22 @@
+ 
+ install-lispLISP: $(lisp_LISP) $(ELCFILES)
+ 	@$(NORMAL_INSTALL)
+-	@if test -n "$(lispdir)"; then \
+-	  $(mkinstalldirs) $(DESTDIR)$(lispdir); \
+-	  list='$(lisp_LISP)'; for p in $$list; do \
+-	    if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+-	    echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p"; \
+-	    $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p; \
+-	    if test -f $${p}c; then \
+-	      echo " $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c"; \
+-	      $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c; \
+-	    else : ; fi; \
+-	  done; \
+-	else : ; fi
++	$(mkinstalldirs) $(DESTDIR)$(lispdir)
++	@list='$(lisp_LISP)'; for p in $$list; do \
++	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
++	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p"; \
++	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(lispdir)/$$p; \
++	  if test -f $${p}c; then \
++	    echo " $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c"; \
++	    $(INSTALL_DATA) $${p}c $(DESTDIR)$(lispdir)/$${p}c; \
++	  else : ; fi; \
++	done
+ 
+ uninstall-lispLISP:
+ 	@$(NORMAL_UNINSTALL)
+-	@if test -n "$(lispdir)"; then \
+-	  list='$(lisp_LISP)'; for p in $$list; do \
+-	    rm -f $(DESTDIR)$(lispdir)/$$p $(DESTDIR)$(lispdir)/$${p}c; \
+-	  done; \
+-	else : ; fi
++	list='$(lisp_LISP)'; for p in $$list; do \
++	  rm -f $(lispdir)/$$p $(DESTDIR)$(lispdir)/$${p}c; \
++	done
+ .el.elc:
+ 	@echo 'WARNING: Warnings can be ignored. :-)'
+ 	if test $(EMACS) != no; then \
+diff -Naur ccrypt-1.4/src/Makefile.in ccrypt-1.4x/src/Makefile.in
+--- ccrypt-1.4/src/Makefile.in	Sun Mar 30 00:38:08 2003
++++ ccrypt-1.4x/src/Makefile.in	Mon Jun  2 18:39:38 2003
+@@ -1,6 +1,6 @@
+-# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
++# Makefile.in generated automatically by automake 1.4 from Makefile.am
+ 
+-# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
++# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+ # This Makefile.in is free software; the Free Software Foundation
+ # gives unlimited permission to copy and/or distribute it,
+ # with or without modifications, as long as this notice is preserved.
+@@ -84,9 +84,7 @@
+ CLEANFILES = tables.c
+ EXTRA_DIST = getopt.c getopt1.c getopt.h unixcrypt3.c unixcrypt3.h
+ 
+-ccrypt_SOURCES = main.c main.h traverse.c traverse.h xalloc.c xalloc.h	 \
+-  readkey.c readkey.h ccrypt.c ccrypt.h ccryptlib.c ccryptlib.h		 \
+-  unixcryptlib.c unixcryptlib.h rijndael.h rijndael.c tables.h tables.c 
++ccrypt_SOURCES = main.c main.h traverse.c traverse.h xalloc.c xalloc.h	   readkey.c readkey.h ccrypt.c ccrypt.h ccryptlib.c ccryptlib.h		   unixcryptlib.c unixcryptlib.h rijndael.h rijndael.c tables.h tables.c 
+ 
+ 
+ ccrypt_LDADD = @EXTRA_OBJS@
+@@ -250,6 +248,7 @@
+ tables.o: tables.c rijndael.h ../config.h tables.h
+ traverse.o: traverse.c getopt.h xalloc.h main.h traverse.h ccrypt.h \
+ 	ccryptlib.h unixcryptlib.h
++unixcrypt3.o: unixcrypt3.c
+ unixcryptlib.o: unixcryptlib.c getopt.h ../config.h unixcryptlib.h \
+ 	ccryptlib.h
+ xalloc.o: xalloc.c xalloc.h
+diff -Naur ccrypt-1.4/src/main.c ccrypt-1.4x/src/main.c
+--- ccrypt-1.4/src/main.c	Sat Mar 29 20:33:00 2003
++++ ccrypt-1.4x/src/main.c	Sat May 31 13:10:50 2003
+@@ -3,7 +3,7 @@
+    by the GNU general public license. See the file COPYING for details. */
+ 
+ /* user interface for ccrypt: encrypt and decrypt files and streams */
+-/* $Id$ */ 
++/* $Id$ */ 
+ 
+ /* This is written to replace the UNIX crypt utility, which uses a
+    weak algorithm and is often omitted from free UNIX distributions.
+@@ -34,45 +34,45 @@
+ /* print usage information */
+ 
+ void usage(FILE *fout) {
+-  fprintf(fout, "\
+-"NAME" "VERSION". Secure encryption and decryption of files and streams.
+-
+-Usage: "NAME" [mode] [options] [file...]
+-       "NAMEENCRYPT" [options] [file...]
+-       "NAMEDECRYPT" [options] [file...]
+-       "NAMECAT" [options] file...
+-
+-Modes:
+-    -e, --encrypt          encrypt
+-    -d, --decrypt          decrypt
+-    -c, --cat              cat; decrypt files to stdout
+-    -x, --keychange        change key
+-    -u, --unixcrypt        decrypt old unix crypt files
+-
+-Options:
+-    -h, --help             print this help message and exit
+-    -V, --version          print version info and exit
+-    -L, --license          print license info and exit
+-    -v, --verbose          print progress information to stderr
+-    -q, --quiet            run quietly; suppress warnings
+-    -f, --force            overwrite existing files without asking
+-    -m, --mismatch         allow decryption with non-matching key
+-    -E, --envvar var       read keyword from environment variable (unsafe)
+-    -K, --key key          give keyword on command line (unsafe)
+-    -k, --keyfile file     read keyword(s) as first line(s) from file
+-    -P, --prompt prompt    use this prompt instead of default
+-    -S, --suffix .suf      use suffix .suf instead of default "SUF"
+-    -s, --strictsuffix     refuse to encrypt files which already have suffix
+-    -F, --envvar2 var      as -E for second keyword (for keychange mode)
+-    -H, --key2 key         as -H for second keyword (for keychange mode)
+-    -Q, --prompt2 prompt   as -P for second keyword (for keychange mode)
+-    -t, --timid            prompt twice for destructive encryption keys
+-    -r, --recursive        recurse through directories
+-    -R, --rec-symlinks     follow symbolic links as subdirectories
+-    -l, --symlinks         dereference symbolic links
+-    -T, --tmpfiles         use temporary files instead of overwriting (unsafe)
+-    --                     end of options, filenames follow
+-");
++  fprintf(fout, 
++""NAME" "VERSION". Secure encryption and decryption of files and streams.\n"
++"\n"
++"Usage: "NAME" [mode] [options] [file...]\n"
++"       "NAMEENCRYPT" [options] [file...]\n"
++"       "NAMEDECRYPT" [options] [file...]\n"
++"       "NAMECAT" [options] file...\n"
++"\n"
++"Modes:\n"
++"    -e, --encrypt          encrypt\n"
++"    -d, --decrypt          decrypt\n"
++"    -c, --cat              cat; decrypt files to stdout\n"
++"    -x, --keychange        change key\n"
++"    -u, --unixcrypt        decrypt old unix crypt files\n"
++"\n"
++"Options:\n"
++"    -h, --help             print this help message and exit\n"
++"    -V, --version          print version info and exit\n"
++"    -L, --license          print license info and exit\n"
++"    -v, --verbose          print progress information to stderr\n"
++"    -q, --quiet            run quietly; suppress warnings\n"
++"    -f, --force            overwrite existing files without asking\n"
++"    -m, --mismatch         allow decryption with non-matching key\n"
++"    -E, --envvar var       read keyword from environment variable (unsafe)\n"
++"    -K, --key key          give keyword on command line (unsafe)\n"
++"    -k, --keyfile file     read keyword(s) as first line(s) from file\n"
++"    -P, --prompt prompt    use this prompt instead of default\n"
++"    -S, --suffix .suf      use suffix .suf instead of default "SUF"\n"
++"    -s, --strictsuffix     refuse to encrypt files which already have suffix\n"
++"    -F, --envvar2 var      as -E for second keyword (for keychange mode)\n"
++"    -H, --key2 key         as -K for second keyword (for keychange mode)\n"
++"    -Q, --prompt2 prompt   as -P for second keyword (for keychange mode)\n"
++"    -t, --timid            prompt twice for destructive encryption keys\n"
++"    -r, --recursive        recurse through directories\n"
++"    -R, --rec-symlinks     follow symbolic links as subdirectories\n"
++"    -l, --symlinks         dereference symbolic links\n"
++"    -T, --tmpfiles         use temporary files instead of overwriting (unsafe)\n"
++"    --                     end of options, filenames follow\n"
++	  );
+ }
+ 
+ /* print version and copyright information */
+
