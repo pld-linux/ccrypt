@@ -5,8 +5,6 @@ Version:	1.2
 Release:	1
 License:	GPL
 Group:          Applications/System
-Group(de):      Applikationen/System
-Group(pl):      Aplikacje/System
 Source0:	http://ccrypt.sourceforge.net/download/%{name}-%{version}.tar.gz
 BuildRequires:	autoconf
 BuildRequires:	automake
