@@ -4,12 +4,12 @@ Name:		ccrypt
 Version:	1.2
 Release:	1
 License:	GPL
-Group:          Applications/System
+Group:		Applications/System
 Source0:	http://ccrypt.sourceforge.net/download/%{name}-%{version}.tar.gz
 BuildRequires:	autoconf
 BuildRequires:	automake
 URL:		http://ccrypt.sourceforge.net/
-BuildRoot:      %{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 ccrypt is a utility for encrypting and decrypting files and streams.
