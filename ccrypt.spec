@@ -5,8 +5,9 @@ Version:	1.4
 Release:	2
 License:	GPL
 Group:		Applications/System
-Source0:	http://ccrypt.sourceforge.net/download/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/ccrypt/%{name}-%{version}.tar.gz
 # Source0-md5:	9eaf357acda3ea0cf26300cffa0d54af
+#
 # From http://quasar.mathstat.uottawa.ca/~selinger/ccrypt/download/ccrypt-1.4.gcc3-3.patch
 Patch0:		%{name}-gcc33.patch
 BuildRequires:	autoconf
