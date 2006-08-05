@@ -7,6 +7,7 @@ License:	GPL
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/ccrypt/%{name}-%{version}.tar.gz
 # Source0-md5:	19526e31a7d234e29d54dbcc876605d5
+Patch0:		%{name}-kill-O3.patch
 URL:		http://ccrypt.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -28,6 +29,7 @@ szyfr jest uwa¿any za daj±cy du¿e bezpieczeñstwo.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 rm -f missing
