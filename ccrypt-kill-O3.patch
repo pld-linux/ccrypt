@@ -1,0 +1,22 @@
+diff -Nur ccrypt-1.7.orig/configure.in ccrypt-1.7.kill-O3/configure.in
+--- ccrypt-1.7.orig/configure.in	2004-03-29 06:52:12.000000000 +0200
++++ ccrypt-1.7.kill-O3/configure.in	2006-08-05 14:41:22.000000000 +0200
+@@ -46,16 +46,11 @@
+ dnl Check for programs.
+ AC_PROG_CC
+ 
+-dnl  Note: CFLAGS can now be specified by the user at ./configure time,
+-dnl  but we enforce -O3, as this really makes a big difference in terms
+-dnl  of performance for ccrypt. (74% faster than -O0, 19% faster than
+-dnl  -O2). The space/time tradeoff is biased in favor of time for ccrypt.
+-
+ if test "$GCC" = "yes"; then
+    if test "$iCFLAGS" = ""; then
+-     CFLAGS="-O3 -Wall"
++     CFLAGS="-Wall"
+    else
+-     CFLAGS="$iCFLAGS -O3"
++     CFLAGS="$iCFLAGS"
+    fi
+ fi
+ 
