@@ -1,5 +1,5 @@
 Summary:	Secure encryption and decryption of files and streams
-Summary(pl.UTF-8):   Bezpieczne szyfrowanie i odszyfrowywanie plików i strumieni
+Summary(pl.UTF-8):	Bezpieczne szyfrowanie i odszyfrowywanie plików i strumieni
 Name:		ccrypt
 Version:	1.7
 Release:	1
