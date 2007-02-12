@@ -1,5 +1,5 @@
 Summary:	Secure encryption and decryption of files and streams
-Summary(pl):	Bezpieczne szyfrowanie i odszyfrowywanie plików i strumieni
+Summary(pl.UTF-8):   Bezpieczne szyfrowanie i odszyfrowywanie plikÃ³w i strumieni
 Name:		ccrypt
 Version:	1.7
 Release:	1
@@ -20,12 +20,12 @@ notorious for using a very weak encryption algorithm. ccrypt is based
 on the Rijndael date for the Advanced Encryption Standard (AES). This
 cipher is believed to provide very strong security.
 
-%description -l pl
-ccrypt jest narzêdziem do szyfrowania i odszyfrowywania plików oraz
-strumieni. Zosta³o opracowane by zast±piæ standardowe narzêdzie
-uniksowe crypt, które u¿ywa bardzo s³abego algorytmu szyfrowania.
+%description -l pl.UTF-8
+ccrypt jest narzÄ™dziem do szyfrowania i odszyfrowywania plikÃ³w oraz
+strumieni. ZostaÅ‚o opracowane by zastÄ…piÄ‡ standardowe narzÄ™dzie
+uniksowe crypt, ktÃ³re uÅ¼ywa bardzo sÅ‚abego algorytmu szyfrowania.
 ccrypt bazuje na Rijndael AES (Advanced Encryption Standard). Ten
-szyfr jest uwa¿any za daj±cy du¿e bezpieczeñstwo.
+szyfr jest uwaÅ¼any za dajÄ…cy duÅ¼e bezpieczeÅ„stwo.
 
 %prep
 %setup -q
