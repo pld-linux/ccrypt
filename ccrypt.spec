@@ -15,7 +15,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 ccrypt is a utility for encrypting and decrypting files and streams.
-It was designed to replace the standard unix crypt utility, which is
+It was designed to replace the standard Unix crypt utility, which is
 notorious for using a very weak encryption algorithm. ccrypt is based
 on the Rijndael date for the Advanced Encryption Standard (AES). This
 cipher is believed to provide very strong security.
