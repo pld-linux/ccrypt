@@ -1,16 +1,17 @@
 Summary:	Secure encryption and decryption of files and streams
 Summary(pl.UTF-8):	Bezpieczne szyfrowanie i odszyfrowywanie plików i strumieni
 Name:		ccrypt
-Version:	1.7
+Version:	1.9
 Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://dl.sourceforge.net/ccrypt/%{name}-%{version}.tar.gz
-# Source0-md5:	19526e31a7d234e29d54dbcc876605d5
-Patch0:		%{name}-kill-O3.patch
+# Source0-md5:	c3f78019d7a166dd66f1d4b1390c62c2
 URL:		http://ccrypt.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	gettext-devel
+BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -29,10 +30,11 @@ szyfr jest uważany za dający duże bezpieczeństwo.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 rm -f missing
+%{__intltoolize}
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
@@ -49,10 +51,12 @@ echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccat.1
 echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccdecrypt.1
 echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccencrypt.1
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README doc/cypfaq01.txt
 %attr(755,root,root) %{_bindir}/*
