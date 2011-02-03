@@ -5,12 +5,13 @@ Version:	1.9
 Release:	1
 License:	GPL
 Group:		Applications/System
-Source0:	http://dl.sourceforge.net/ccrypt/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/ccrypt/%{name}-%{version}.tar.gz
 # Source0-md5:	c3f78019d7a166dd66f1d4b1390c62c2
 URL:		http://ccrypt.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
+BuildRequires:	intltool
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
