@@ -10,7 +10,7 @@ Source0:	http://downloads.sourceforge.net/ccrypt/%{name}-%{version}.tar.gz
 URL:		http://ccrypt.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	intltool
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
