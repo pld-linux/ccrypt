@@ -2,7 +2,7 @@ Summary:	Secure encryption and decryption of files and streams
 Summary(pl.UTF-8):	Bezpieczne szyfrowanie i odszyfrowywanie plików i strumieni
 Name:		ccrypt
 Version:	1.9
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/System
 Source0:	http://downloads.sourceforge.net/ccrypt/%{name}-%{version}.tar.gz
