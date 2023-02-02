@@ -1,17 +1,16 @@
 Summary:	Secure encryption and decryption of files and streams
 Summary(pl.UTF-8):	Bezpieczne szyfrowanie i odszyfrowywanie plików i strumieni
 Name:		ccrypt
-Version:	1.9
-Release:	2
+Version:	1.11
+Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://downloads.sourceforge.net/ccrypt/%{name}-%{version}.tar.gz
-# Source0-md5:	c3f78019d7a166dd66f1d4b1390c62c2
+# Source0-md5:	262573b04416b3b947f0d38807ec5246
 URL:		http://ccrypt.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-tools
-BuildRequires:	intltool
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -34,7 +33,6 @@ szyfr jest uważany za dający duże bezpieczeństwo.
 
 %build
 rm -f missing
-%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -47,10 +45,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccat.1
-echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccdecrypt.1
-echo ".so ccrypt.1." > $RPM_BUILD_ROOT%{_mandir}/man1/ccencrypt.1
 
 %find_lang %{name}
 
